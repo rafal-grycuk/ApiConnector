@@ -9,7 +9,12 @@ namespace ApiConnector.Net.HttpRest
 
     public class ApiConnector : IApiConnector
     {
-        public async Task<T> Request<T>(string url, HttpMethod method, object dataObject = null, ContentType? contentType = null, string authToken = null)
+        public async Task<T> RequestAsync<T>(string url, HttpMethod method, object dataObject = null, ContentType? contentType = null, string authToken = null)
+        {
+            return await Task<T>.Run<T>(() => Request<T>(url, method, dataObject, contentType, authToken));
+        }
+
+        public T Request<T>(string url, HttpMethod method, object dataObject = null, ContentType? contentType = null, string authToken = null)
         {
             try
             {
@@ -37,10 +42,10 @@ namespace ApiConnector.Net.HttpRest
                         throw new NotImplementedException("xml content type was not implemented yet :)");
                     }
                 }
-                var response = await httpClient.SendAsync(message);
+                var response = httpClient.SendAsync(message).Result;
                 if (response.IsSuccessStatusCode)
                 {
-                    string jsonString = await response.Content.ReadAsStringAsync();
+                    string jsonString = response.Content.ReadAsStringAsync().Result;
                     var responseObject = Newtonsoft.Json.JsonConvert.DeserializeObject<T>(jsonString);
                     return responseObject;
                 }

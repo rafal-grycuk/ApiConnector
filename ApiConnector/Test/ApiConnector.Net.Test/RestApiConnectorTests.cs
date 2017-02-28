@@ -19,9 +19,17 @@ namespace ApiConnector.Net.Test
         }
 
         [Fact]
-        public  void  GetTest()
+        public  void  GetTestAsync()
         {
-            var result = this._apiConnector.Request<ApiInfo>(this._url+ "get", HttpMethod.Get, null, ContentType.JsonContent,  this._token).Result;
+            var result = this._apiConnector.RequestAsync<ApiInfo>(this._url+ "get", HttpMethod.Get, null, ContentType.JsonContent,  this._token).Result;
         }
+
+        [Fact]
+        public void GetTest()
+        {
+            var result = this._apiConnector.Request<ApiInfo>(this._url + "get", HttpMethod.Get, null, ContentType.JsonContent, this._token);
+        }
+
+
     }
 }
