@@ -1,4 +1,4 @@
-﻿namespace ApiConnector.Net.HttpRest
+﻿namespace ApiConnector.Net.HttpRest.Models
 {
     public enum ContentType
     {
