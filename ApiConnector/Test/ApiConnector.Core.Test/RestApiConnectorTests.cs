@@ -1,11 +1,10 @@
 ﻿using System.Net.Http;
-using System.Threading.Tasks;
-using ApiConnector.Net.HttpRest;
-using ApiConnector.Net.HttpRest.Models;
-using ApiConnector.Net.Test.Models;
+using ApiConnector.Core.HttpRest;
+using ApiConnector.Core.HttpRest.Models;
+using ApiConnector.Core.Test.Models;
 using Xunit;
 
-namespace ApiConnector.Net.Test
+namespace ApiConnector.Core.Test
 {
     public class RestApiConnectorTests
     {
@@ -23,14 +22,12 @@ namespace ApiConnector.Net.Test
         public void GetTestAsync()
         {
             var result = this._apiConnector.RequestAsync<ApiInfo>(this._url + "get", HttpMethod.Get, null, ContentResponseType.JsonContent, this._token).Result;
-            Assert.True(result.ResponseMessage.StatusCode == System.Net.HttpStatusCode.OK && result.ReponseObject != null);
         }
 
         [Fact]
         public void GetTest()
         {
             var result = this._apiConnector.Request<ApiInfo>(this._url + "get", HttpMethod.Get, null, ContentResponseType.JsonContent, this._token);
-            Assert.True(result.ResponseMessage.StatusCode == System.Net.HttpStatusCode.OK && result.ReponseObject != null);
         }
 
 

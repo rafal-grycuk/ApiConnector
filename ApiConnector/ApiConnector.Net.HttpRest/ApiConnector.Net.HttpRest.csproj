@@ -57,7 +57,7 @@
   <ItemGroup>
     <Compile Include="ApiConnector.cs" />
     <Compile Include="Models\ApiResponseMessage.cs" />
-    <Compile Include="Models\ContentType.cs" />
+    <Compile Include="Models\ContentResponseType.cs" />
     <Compile Include="IApiConnector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

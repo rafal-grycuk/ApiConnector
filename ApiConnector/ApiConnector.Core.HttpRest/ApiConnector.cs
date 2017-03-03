@@ -3,9 +3,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using ApiConnector.Net.HttpRest.Models;
+using ApiConnector.Core.HttpRest.Models;
 
-namespace ApiConnector.Net.HttpRest
+namespace ApiConnector.Core.HttpRest
 {
 
     public class ApiConnector : IApiConnector
@@ -57,5 +57,4 @@ namespace ApiConnector.Net.HttpRest
         }
     }
 }
-
 

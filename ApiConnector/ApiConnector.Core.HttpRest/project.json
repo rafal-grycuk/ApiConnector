@@ -1,0 +1,21 @@
+{
+  "title": "ApiConnector.Core.HttpRest",
+  "description": "Simple REST Api Connector for sending and receiving REST requests. Designed for .NET Core applications",
+  "version": "1.0.3",
+  "copyright": "By Rafal Grycuk",
+  "authors": [ "Rafal Grycuk" ],
+  "packOptions": {
+    "releaseNotes": "ApiResponseMessage added.",
+    "tags": [ "REST", "Api", "Connector" , "HTTP REST"]
+  },
+  "dependencies": {
+    "NETStandard.Library": "1.6.1",
+    "Newtonsoft.Json": "9.0.1"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

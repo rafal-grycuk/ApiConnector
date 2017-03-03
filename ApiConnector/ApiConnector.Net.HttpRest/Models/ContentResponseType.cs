@@ -1,6 +1,6 @@
 ﻿namespace ApiConnector.Net.HttpRest.Models
 {
-    public enum ContentType
+    public enum ContentResponseType
     {
         TextContent,
         JsonContent,
