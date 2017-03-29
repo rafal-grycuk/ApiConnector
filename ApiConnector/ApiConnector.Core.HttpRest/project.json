@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "NETStandard.Library": "1.6.1",
-    "Newtonsoft.Json": "9.0.1"
+    "Newtonsoft.Json": "9.0.1",
+    "System.Xml.XmlSerializer": "4.3.0"
   },
 
   "frameworks": {
