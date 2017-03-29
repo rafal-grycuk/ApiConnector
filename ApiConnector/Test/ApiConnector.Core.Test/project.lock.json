@@ -2893,7 +2893,7 @@
           "lib/netstandard1.1/xunit.runner.utility.dotnet.dll": {}
         }
       },
-      "ApiConnector.Core.HttpRest/1.0.3": {
+      "ApiConnector.Core.HttpRest/1.0.4": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -5904,7 +5904,7 @@
           "lib/netstandard1.1/xunit.runner.utility.dotnet.dll": {}
         }
       },
-      "ApiConnector.Core.HttpRest/1.0.3": {
+      "ApiConnector.Core.HttpRest/1.0.4": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
@@ -12261,7 +12261,7 @@
         "xunit.runner.utility.nuspec"
       ]
     },
-    "ApiConnector.Core.HttpRest/1.0.3": {
+    "ApiConnector.Core.HttpRest/1.0.4": {
       "type": "project",
       "path": "../../ApiConnector.Core.HttpRest/project.json",
       "msbuildProject": "../../ApiConnector.Core.HttpRest/ApiConnector.Core.HttpRest.xproj"
