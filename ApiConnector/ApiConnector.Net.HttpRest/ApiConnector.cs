@@ -5,48 +5,34 @@ using System.Text;
 using System.Threading.Tasks;
 using ApiConnector.Net.HttpRest.Models;
 using ApiConnector.Net.HttpRest.Utilities;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace ApiConnector.Net.HttpRest
 {
     public class ApiConnector : IApiConnector
     {
-        public async Task<ApiResponseMessage<T>> RequestAsync<T>(string url, HttpMethod method, object dataObject = null,
-            ContentResponseType? contentResponseType = null, AuthenticationType? authenticationType = null,
-            string authToken = null)
+        public async Task<ApiResponseMessage<T>> RequestAsync<T>(string url, HttpMethod method, StringContent content = null, ContentResponseType? contentResponseType = null, IDictionary<string, string> defaultRequestHeaders = null, IList<MediaTypeWithQualityHeaderValue> acceptRequestHeaders = null)
         {
-            return
-                await Task.Run(
-                    () => Request<T>(url, method, dataObject, contentResponseType, authenticationType, authToken));
+            return await Task.Run(() => Request<T>(url, method, content, contentResponseType, defaultRequestHeaders, acceptRequestHeaders));
         }
 
-        public ApiResponseMessage<T> Request<T>(string url, HttpMethod method, object dataObject = null,
-            ContentResponseType? contentResponseType = null, AuthenticationType? authenticationType = null,
-            string authToken = null)
+        public ApiResponseMessage<T> Request<T>(string url, HttpMethod method, StringContent content = null, ContentResponseType? contentResponseType = null, IDictionary<string, string> defaultRequestHeaders = null, IList<MediaTypeWithQualityHeaderValue> acceptRequestHeaders = null)
         {
             HttpRequestMessage message = new HttpRequestMessage(method, url);
             var httpClient = new HttpClient();
-            if (authToken != null && authenticationType.HasValue)
-                httpClient.DefaultRequestHeaders.Add("Authorization", authenticationType.Value + " " + authToken);
-            if (dataObject != null)
+            foreach (var header in defaultRequestHeaders ?? Enumerable.Empty<KeyValuePair<string, string>>())
             {
-                if (contentResponseType.HasValue && contentResponseType.Value == ContentResponseType.JsonContent)
-                {
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                    string jsonObject = Newtonsoft.Json.JsonConvert.SerializeObject(dataObject);
-                    message.Content = new StringContent(jsonObject, Encoding.UTF8, "application/json");
-                }
-                else if (contentResponseType.HasValue && contentResponseType.Value == ContentResponseType.TextContent)
-                {
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/text"));
-                    message.Content = new StringContent(dataObject.ToString(), Encoding.UTF8, "application/text");
-                }
-                else if (contentResponseType.HasValue && contentResponseType.Value == ContentResponseType.XmlContent)
-                {
-                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/xml"));
-                    message.Content = new StringContent(dataObject.ToString(), Encoding.UTF8, "application/xml");
-                }
+                httpClient.DefaultRequestHeaders.Add(header.Key, header.Value);
             }
-
+            foreach (var acceptHeader in acceptRequestHeaders ?? Enumerable.Empty<MediaTypeWithQualityHeaderValue>())
+            {
+                httpClient.DefaultRequestHeaders.Accept.Add(acceptHeader);
+            }
+            if (content != null)
+            {
+                message.Content = content;
+            }
             var responseMessage = httpClient.SendAsync(message).Result;
             ApiResponseMessage<T> apiResponseMessage = new ApiResponseMessage<T>()
             {
@@ -63,7 +49,7 @@ namespace ApiConnector.Net.HttpRest
                 else if (contentResponseType.HasValue && contentResponseType.Value == ContentResponseType.TextContent)
                 {
                     string textString = responseMessage.Content.ReadAsStringAsync().Result;
-                    apiResponseMessage.ReponseObject = (dynamic) textString;
+                    apiResponseMessage.ReponseObject = (dynamic)textString;
                 }
                 else if (contentResponseType.HasValue && contentResponseType.Value == ContentResponseType.XmlContent)
                 {

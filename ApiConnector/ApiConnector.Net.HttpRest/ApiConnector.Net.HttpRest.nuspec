@@ -2,12 +2,12 @@
 <package >
   <metadata>
     <id>ApiConnector.Net.HttpRest</id>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <authors>Rafal Grycuk</authors>
     <owners>Rafal Grycuk</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Simple REST Api Connector for sending and receiving REST requests. Designed for .NET Framework applications</description>
-    <releaseNotes>ApiResponseMessage added</releaseNotes>
+    <releaseNotes>Default headers added</releaseNotes>
     <copyright>By Rafal Grycuk</copyright>
     <tags>REST Api Connector HTTP REST</tags>
     <dependencies>
